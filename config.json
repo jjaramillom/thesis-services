@@ -1,0 +1,11 @@
+
+{
+    "uploadURL": "http://localhost:3000/database/measurement",
+    "path": "data",
+    "readInterval": 5,
+    "deleteFile": false,
+    "measurement": "automatic",
+    "fileName": "file.csv",
+	"FTP_URL": "http://localhost:21"
+}
+
