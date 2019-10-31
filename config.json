@@ -1,11 +1,19 @@
-
 {
-    "uploadURL": "http://localhost:3000/database/measurement",
-    "path": "data",
-    "readInterval": 5,
-    "deleteFile": false,
-    "measurement": "automatic",
-    "fileName": "file.csv",
-	"FTP_URL": "http://localhost:21"
+    "ftp": {
+        "host": "192.168.1.3",
+        "username": "ELAU",
+        "password": "acx35eikl",
+        "ftpPath": "ram0:",
+        "deleteFile": false
+    },
+    "uploader": {
+        "url": "http://localhost:3000/database/measurement",
+        "deleteFile": false,
+        "measurement": "automatic"
+    },
+    "shared": {
+        "localFilesPath": "files/",
+        "localFileName": "temp.csv",
+        "interval": 5
+    }
 }
-

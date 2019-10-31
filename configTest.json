@@ -1,0 +1,19 @@
+{
+    "ftp": {
+        "host": "127.0.0.1",
+        "username": "ELAU",
+        "password": "acx35eikl",
+        "ftpPath": "ram0",
+        "deleteFile": false
+    },
+    "uploader": {
+        "url": "http://localhost:3000/database/measurement",
+        "deleteFile": false,
+        "measurement": "automatic"
+    },
+    "shared": {
+        "localFilesPath": "files/",
+        "localFileName": "temp.csv",
+        "interval": 5
+    }
+}
