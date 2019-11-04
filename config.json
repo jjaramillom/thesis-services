@@ -4,7 +4,8 @@
         "username": "ELAU",
         "password": "acx35eikl",
         "ftpPath": "ram0:",
-        "deleteFile": false
+        "fileName": "Maschinenzyklus__DONE.csv",
+        "deleteFile": true
     },
     "uploader": {
         "url": "http://localhost:3000/database/measurement",

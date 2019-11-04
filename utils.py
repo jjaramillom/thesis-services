@@ -9,7 +9,7 @@ import logging
 
 class Uploader:
     def __init__(self, url, filePath, fileName, verbose=False):
-        self.__uploadURL = url + '/' + fileName
+        self.__uploadURL = url
         self.__completePath = filePath + '/' + fileName
         self.__verbose = verbose
 
@@ -38,9 +38,9 @@ class Uploader:
                 print('ERROR sending data to web server.', e)
         self.__file.close()
 
-    def deleteFile():
+    def deleteFile(self):
         try:
-            os.remove(config['path'])
+            os.remove(self.__completePath)
             if self.__verbose:
                 print('Local file deleted')
         except Exception as e:
@@ -59,7 +59,7 @@ class FtpReader:
         listing = []
         self.__server.retrlines('LIST', listing.append)
         if (len(listing) == 0):
-            raise Exception('No files available in FTP server')
+            raise Exception('No files available in FTP server.')
         words = listing[0].split(None, 8)
         return words[-1]
 
@@ -71,7 +71,7 @@ class FtpReader:
                 print('Connected to server')
         except Exception as error:
             if self.__verbose:
-                print('ERROR connecting to FTP server. ', error)
+                print('ERROR connecting to FTP server.', error)
 
     def isConnected(self):
         try:
@@ -90,9 +90,14 @@ class FtpReader:
                     print('ERROR. Could not change directory, path does not exist.')
         
 
-    def copyFile(self, copyToPath):
+    def copyFile(self, fileToCopy, copyToPath):
         try:
             fileName = self.__getFileName()
+            self.__fileToCopy = fileToCopy
+            if (fileName != fileToCopy):
+                if self.__verbose:
+                    print('ERROR. File to copy not ready yet.')
+                return False
             with open(copyToPath, 'wb') as file:
                 self.__server.retrbinary('RETR ' + fileName, file.write)
                 if self.__verbose:
@@ -100,17 +105,17 @@ class FtpReader:
                 return True
         except Exception as error:
             if self.__verbose:
-                print('ERROR copying file from FTP server. ', error)
+                print('ERROR copying file from FTP server.', error)
             return False
 
     def deleteFile(self):
         try:
-            fileName = self.__getFileName()
+            fileName = self.__fileToCopy
             self.__server.delete(fileName)
             if self.__verbose:
                 print('File deleted')
         except Exception as error:
             if self.__verbose:
-                print('ERROR deleting file in FTP server. ', error)
+                print('ERROR deleting file in FTP server.', error)
             return False
         return True

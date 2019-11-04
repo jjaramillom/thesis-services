@@ -4,7 +4,7 @@ import time
 from utils import Uploader, FtpReader
 
 config = dict()
-configUploader = 'configTest.json'
+configUploader = 'config.json'
 
 
 def setup(filePath, config):
@@ -36,6 +36,7 @@ def initialize():
 def startService():
     global config
     setup(configUploader, config)
+    fileName = config['ftp']['fileName']
     uploader, ftpReader = initialize()
     copyToPath = config['shared']['localFilesPath'] + \
         config['shared']['localFileName']
@@ -50,8 +51,8 @@ def startService():
                 ftpReader.changeDirectory(config['ftp']['ftpPath'])
 
         if (ftpReader.isConnected()):
-            fileCopied = ftpReader.copyFile(copyToPath)
-            if (config['ftp']['deleteFile']):
+            fileCopied = ftpReader.copyFile(fileName, copyToPath)
+            if (config['ftp']['deleteFile'] and fileCopied):
                 ftpReader.deleteFile()
 
         if (fileCopied):
